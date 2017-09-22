@@ -40,11 +40,11 @@ public class CustomerServiceTest {
 
     Customer customer3 = new Customer();
     customer3.setFirstName("Monette");
-    customer3.setLastName(null);
+    customer3.setLastName("Carey");
 
     Customer customer4 = new Customer();
     customer4.setFirstName("Marissa");
-    customer4.setLastName("Carey");
+    customer4.setLastName(null);
 
     List<Customer> customersError = new ArrayList();
     customersError.add(customer3);
