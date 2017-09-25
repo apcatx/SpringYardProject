@@ -7,10 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +30,13 @@ public class CustomerController
     return "new_customer";
   }
 
+  @GetMapping("/customer/{customerId}")
+  String viewCustomerDetails(@PathVariable String customerId, Model model) {
+    Customer aCustomer = customerService.getById(Integer.parseInt(customerId));
+    model.addAttribute("customer",aCustomer);
+    return "customer_details";
+  }
+
   @GetMapping("/admins-only")
   String admins() {
     return "administration";
@@ -46,6 +50,9 @@ public class CustomerController
     model.addAttribute("listOfCustomers", customers);
     return "view_customers";
   }
+
+
+  // add route that goes to individual customer
 
   @RequestMapping("/loggedout")
   String logout(Model model) {

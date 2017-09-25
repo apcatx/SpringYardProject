@@ -10,8 +10,10 @@
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
+    <a href="/customers">Show all customers"</a>
 </div>
 <h1>List of Customers</h1>
+<a sec:authorize="hasRole('ROLE_ADMIN')" href="/admins-only">Admins Only</a>
 <table>
     <tr>
         <th>ID</th>
@@ -19,14 +21,15 @@
         <th>Last Name</th>
     </tr>
     <tr th:each="customer: ${listOfCustomers}">
-        <td align="center" th:text="${customer.id}" />
+        <td align="center">
+            <a th:text="${customer.id}" th:href="@{'/customer/' + ${customer.id}}"/>
+        </td>
         <td align="center" th:text="${customer.firstName}" />
         <td align="center" th:text="${customer.lastName}" />
     </tr>
 </table>
 <p>
     <a href="/customer">Add</a>
-    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admins-only">Admins Only</a>
 </p>
 </body>
 </html>
