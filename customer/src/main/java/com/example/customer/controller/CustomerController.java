@@ -3,6 +3,8 @@ package com.example.customer.controller;
 import com.example.customer.model.Customer;
 import com.example.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,6 +29,7 @@ public class CustomerController
 
   @GetMapping("/customer")
   String getCustomer(Model model) {
+    showPrinciple();
     return "new_customer";
   }
 
@@ -61,5 +64,16 @@ public class CustomerController
     System.out.println(exception);
     model.addAttribute("message", exception.getMessage());
     return "error_message";
+  }
+
+  private void showPrinciple() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    System.out.println("\n\n\n ===========>");
+    System.out.println("name " + authentication.getName());
+    System.out.println("details " + authentication.getDetails());
+    System.out.println("authorities " + authentication.getAuthorities());
+    System.out.println("credentials " + authentication.getCredentials());
+    System.out.println("principal " + authentication.getPrincipal());
+    System.out.println("is authenticated " + authentication.isAuthenticated());
   }
 }
